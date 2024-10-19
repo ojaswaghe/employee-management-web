@@ -1,6 +1,6 @@
-// File: src/App.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './App.css'; // Import the CSS file
 
 function App() {
     const [employees, setEmployees] = useState([]);
@@ -20,6 +20,10 @@ function App() {
     const addEmployee = async () => {
         await axios.post('http://15.206.187.100:5000/api/employees', { name, position, salary });
         fetchEmployees();
+        // Clear the input fields after adding an employee
+        setName('');
+        setPosition('');
+        setSalary('');
     };
 
     const deleteEmployee = async (id) => {
@@ -30,7 +34,7 @@ function App() {
     return (
         <div className="App">
             <h1>Employee Management</h1>
-            <div>
+            <div className="employee-form">
                 <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
                 <input placeholder="Position" value={position} onChange={(e) => setPosition(e.target.value)} />
                 <input placeholder="Salary" value={salary} onChange={(e) => setSalary(e.target.value)} />
